@@ -1,0 +1,11 @@
+Primeiro, criei uma var BASE_URL que não importa quem estiver acessando conseguiremos
+acessar os arquivos estáticos.
+  $BASE_URL = "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI'] . '?') . '/';  
+
+
+no nosso index.php, prmieiramente, importamos nosso arquivo config.
+também iremos utilizar bootstrap nesse projeto.
+
+pegamos no cdnjs
+criei os templates	
+		Banco de dados:

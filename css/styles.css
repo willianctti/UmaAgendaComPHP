@@ -1,3 +1,51 @@
 body {
     background-color: white;
 }
+
+#main-title {
+    text-align: center;
+    margin: 15px 0 30px;
+}
+
+/* Home */ 
+
+#contacts-table {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#contacts-table thead {
+    color: white;
+    background-color: blue;
+}
+
+.actions {
+    text-align: right;
+    width: 150px;
+}
+
+.check-icon {
+    color: green;
+}
+
+.edit-icon {
+    color: blue;
+}
+.delete-icon {
+    color: red;
+}
+
+#empty-list-text {
+    text-align: center;
+}
+
+#msg {
+    color: green;
+    background-color: gray;
+    border: 1px solid rgb(73, 73, 73);
+    padding: 10px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+}

@@ -8,4 +8,105 @@ também iremos utilizar bootstrap nesse projeto.
 
 pegamos no cdnjs
 criei os templates	
+
+
+
+
+
+
+
 		Banco de dados:
+
+vamos usar o phpmyadmin para administrar nosso banco de dados desse projeto
+depois de criar nosso banco com id (primary key), nome, numero e observações, 
+faremos nossa conexão:
+<?php
+    $host = "localhost";
+    $dbname = "agenda";
+    $user = "root";
+    $pass = "";
+
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+ 
+        // Modo de erros
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    } catch(PDOException $e) {
+        // Erro na conexão
+        $error = $e->getMessage();
+        echo "Erro: $error";
+    }
+
+e incluimos nossa conecction no header apenas para testar.
+
+
+
+
+
+
+
+
+
+
+
+
+		Criando arquivo de processamento e home
+
+criei um novo doc php com o nome php que fará todo nosso CRUD
+primeiro, trazemos todo o select para nossa home:
+<?php
+    session_start();
+
+    include_once("connection.php");
+    include_once("url.php");
+    $contacts = [];
+
+    $query = "SELECT * FROM contacts";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+
+    $contacts = $stmt->fetchAll();
+
+na nossa home, fiz um if e else que, respectivamente, mostrará um link para
+criar um novo contato ou que mostrará todos os contatos existentes:
+
+   <div class="container">
+        <?php if(isset($printMsg) && $printMsg != ''): ?>
+            <p id="msg"><?= $printMsg ?></p>
+        <?php endif; ?>
+
+        <h1 id="main-title">Minha agenda</h1>
+        <?php if(count($contacts) > 0): ?>
+            <table class="table" id="contacts-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($contacts as $contact): ?>
+                        <tr>
+                            <td scope="row"><?= $contact["id"] ?></td>
+                            <td scope="row"><?= $contact["name"] ?></td>
+                            <td scope="row"><?= $contact["phone"] ?></td>
+                            <td class="actions">
+                                <a href="#"><i class="fas fa-eye check-icon"></i></a>
+                                <a href="#"><i class="far fa-edit edit-icon"></i></a>
+                                <button type="submit"><i class="fas fa-times delete-icon"></i></button>
+                            </td>
+                        </tr>
+
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p id="empty-list-text">Ainda não há contatos, <a href="<?= $BASE_URL ?>create.php">clique aqui para adicionar</a></p>
+        <?php endif; ?>
+    </div>
+
+
+finalizei tamnbém o css daa home.
